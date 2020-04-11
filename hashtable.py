@@ -49,61 +49,24 @@ class HashTable:
         return self._hash(key) % self.capacity
 
     def insert(self, key, value):
-        '''
-        Store the value with the given key.
-
-        # Part 1: Hash collisions should be handled with an error warning. (Think about and
-        # investigate the impact this will have on the tests)
-
-        # Part 2: Change this so that hash collisions are handled with Linked List Chaining.
-
-        Fill this in.
-        '''
         index = self._hash_mod(key)
-        # if self.storage == self.capacity:
-        #     print('hashtable is full')
-
         if self.storage[index] is not None:
-            print('this key is currently being used')
-        else:
-            self.storage[index] = LinkedPair(key, value)
+            print('collision warning')
+        self.storage[index] = LinkedPair(key, value)
 
     def remove(self, key):
-        '''
-        Remove the value stored with the given key.
-
-        Print a warning if the key is not found.
-
-        Fill this in.
-        '''
         index = self._hash_mod(key)
-        if self.storage[index] is not None:
-            self.storage[index] = None
-        else:
-            print('this key doesnt exist')
+        self.storage[index] = None
 
     def retrieve(self, key):
-        '''
-        Retrieve the value stored with the given key.
 
-        Returns None if the key is not found.
-
-        Fill this in.
-        '''
         index = self._hash_mod(key)
         if self.storage[index] is None:
             return None
-        return self.storage[index]
+        return self.storage[index].value
         # pass
 
     def resize(self):
-        '''
-        Doubles the capacity of the hash table and
-        rehash all key/value pairs.
-
-        Fill this in.
-        '''
-
         old_storage = self.storage
         self.capacity *= 2
 
@@ -111,25 +74,6 @@ class HashTable:
         for pair in old_storage:
             if pair is not None:
                 self.insert(pair.key, pair.value)
-        # old_storage = self.storage
-        # old_capacity = self.capacity
-        # self.capacity = old_capacity * 2
-        # self.capacity *= 2
-        # new_storage = [None] * self.capacity
-
-        # for i in old_capacity:
-        #     new_storage[key, value] = self.storage[key, value]
-        #     self.storage = new_storage
-
-        # self.capacity *= 2
-        # new_storage = self.storage.copy()
-        # for i in self.storage:
-        #     new_storage[i] = self.storage[i]
-        #     self.storage = new_storage
-        # dub_storage = [None] * self.capacity
-        # for i in range(self.length):
-        #     dub_storage[i] self.storage[i]
-        #     self.storage = dub_storage
 
 
 if __name__ == "__main__":
